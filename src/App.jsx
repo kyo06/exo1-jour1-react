@@ -37,7 +37,7 @@ function App() {
 
   // Handler passé à chaque ProductCard
   const handleAddToCart = (item) => {
-    // setCart([...cart, item]);
+    setCart([...cart, item]);
     alert(`Ajouté au panier : ${item.name} (${item.price.toFixed(2)} €)`);
   };
 
