@@ -3,9 +3,43 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
-import Badge from './components/Badge'
+import Badge from './components/Badge/Badge'
+import ProductCard from './components/ProductCard/ProductCard'
+
+// Données de test — différentes props pour valider le composant
+const products = [
+  {
+    id: 1,
+    name: "Casque Sony WH-1000XM5",
+    price: 349.99,
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+    inStock: true,
+  },
+  {
+    id: 2,
+    name: "iPhone 15 Pro",
+    price: 1229.0,
+    image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400",
+    inStock: false, // → affiche le badge "Rupture de stock"
+  },
+  {
+    id: 3,
+    name: "MacBook Air M3",
+    price: 1299.0,
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400",
+    inStock: true,
+  },
+];
+
 
 function App() {
+  const [cart, setCart] = useState([]);
+
+  // Handler passé à chaque ProductCard
+  const handleAddToCart = (item) => {
+    // setCart([...cart, item]);
+    alert(`Ajouté au panier : ${item.name} (${item.price.toFixed(2)} €)`);
+  };
 
   return (
     <>
@@ -26,6 +60,26 @@ function App() {
           <Badge text="React" color="#61DAFB" />
           <Badge text="Vite" color="#16d837" />
         </div>
+              <h1>🛒 Notre catalogue</h1>
+ 
+      {/* Compteur panier */}
+      <p className="cart-count">
+        Panier : {cart.length} article{cart.length > 1 ? "s" : ""}
+      </p>
+ 
+      {/* Liste de cartes */}
+      <div className="grid">
+        {products.map((p) => (
+          <ProductCard
+            key={p.id}
+            name={p.name}
+            price={p.price}
+            image={p.image}
+            inStock={p.inStock}
+            onAddToCart={handleAddToCart}
+          />
+        ))}
+      </div>
       </section>
     </>
   )
